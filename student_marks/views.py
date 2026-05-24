@@ -9,7 +9,7 @@ from student_marks.serializers import StudentMarkSerializer
 
 # Create your views here.
 def home(request):
-    return render(request, 'home.html')
+    return render(request, 'home.html' )
 
 @api_view(['GET'])
 def get_marks(request):
