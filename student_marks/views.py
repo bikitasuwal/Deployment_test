@@ -8,6 +8,8 @@ from student_marks.serializers import StudentMarkSerializer
 
 
 # Create your views here.
+def home(request):
+    return render(request, 'home.html')
 
 @api_view(['GET'])
 def get_marks(request):
@@ -22,3 +24,4 @@ def add_marks(request):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
