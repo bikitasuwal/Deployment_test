@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 
+import dj_database_url
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -76,10 +78,21 @@ WSGI_APPLICATION = 'StudentMarks.wsgi.application'
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default='postgresql://stud_marks_user:y2xLvrLqXoG7FtFrr2UukwArVEhgGPLO@dpg-d8b87i28qa3s73dl58r0-a/stud_marks',
+        conn_max_age=600
+    )
+    # {
+    #     # 'ENGINE': 'django.db.backends.sqlite3',
+    #     # 'NAME': BASE_DIR / 'db.sqlite3',
+    #
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'stud_marks',
+    #     'USER': 'postgres',
+    #     'PASSWORD': 'bikita',
+    #     'HOST': 'localhost',
+    #     'PORT': '5432',
+    # }
 }
 
 
