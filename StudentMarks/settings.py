@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'StudentMarks.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgresql://stud_marks_user:y2xLvrLqXoG7FtFrr2UukwArVEhgGPLO@dpg-d8b87i28qa3s73dl58r0-a/stud_marks',
+        default='postgresql://stud_marks_user:y2xLvrLqXoG7FtFrr2UukwArVEhgGPLO@dpg-d8b87i28qa3s73dl58r0-a.oregon-postgres.render.com/stud_marks',
         conn_max_age=600
     )
     # {
