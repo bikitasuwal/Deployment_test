@@ -5,14 +5,85 @@
 </head>
 <body>
 
-    <h1>Student Marks Management</h1>
+<h1>Student Marks Management</h1>
 
-    <a href="/api/add/">
-        <button>Add Student</button>
-    </a>
-<br><br>
-    <a href="/api/all/">
-        <button>View All Students</button>
-    </a>
+<!-- ADD STUDENT FORM -->
+<h2>Add Student</h2>
+
+<form id="studentForm">
+    <input type="text" id="name" placeholder="Name"><br><br>
+    <input type="text" id="subject" placeholder="Subject"><br><br>
+    <input type="text" id="grade" placeholder="Grade"><br><br>
+    <input type="number" id="marks" placeholder="Marks"><br><br>
+
+    <button type="button" onclick="submitData()">Add Student</button>
+</form>
+
+<br><hr><br>
+
+<!-- VIEW BUTTON -->
+<button onclick="loadStudents()">View All Students</button>
+
+<div id="output"></div>
+
+<script>
+const API_URL = "/api/add/";
+const GET_URL = "/api/all/";
+
+// ADD STUDENT (POST)
+function submitData() {
+    fetch(API_URL, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            name: document.getElementById("name").value,
+            subject: document.getElementById("subject").value,
+            grade: document.getElementById("grade").value,
+            marks: document.getElementById("marks").value
+        })
+    })
+    .then(async res => {
+        const data = await res.json();
+
+        if (!res.ok) {
+            alert("Error: " + JSON.stringify(data));
+            return;
+        }
+
+        alert("Student Added!");
+
+        document.getElementById("studentForm").reset();
+        loadStudents();
+    })
+    .catch(err => {
+        console.error(err);
+        alert("Server error");
+    });
+}
+// VIEW ALL STUDENTS (GET)
+function loadStudents() {
+    fetch(GET_URL)
+    .then(res => res.json())
+    .then(data => {
+        let html = "<h2>All Students</h2><table border='1'><tr><th>Name</th><th>Subject</th><th>Grade</th><th>Marks</th></tr>";
+
+        data.forEach(s => {
+            html += `<tr>
+                        <td>${s.name}</td>
+                        <td>${s.subject}</td>
+                        <td>${s.grade}</td>
+                        <td>${s.marks}</td>
+                     </tr>`;
+        });
+
+        html += "</table>";
+
+        document.getElementById("output").innerHTML = html;
+    });
+}
+</script>
+
 </body>
 </html>
